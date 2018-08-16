@@ -1,0 +1,8 @@
+---
+- hosts: awx
+  roles:
+    - extra-packages
+    - ansible
+    - docker
+    - node.js
+    - awx-repo

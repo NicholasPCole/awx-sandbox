@@ -1,0 +1,34 @@
+---
+- name: Install prerequisites.
+  apt:
+    name: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+
+- name: Add the GPG key.
+  apt_key:
+    id: 8D81803C0EBFCD88
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+
+- name: Add the repository.
+  apt_repository:
+    repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+    state: present
+
+- name: Install Docker CE.
+  apt:
+    name: docker-ce
+    state: present
+    update_cache: yes
+
+- name: Install the Docker SDK for Python.
+  easy_install:
+    name: docker
+    state: present

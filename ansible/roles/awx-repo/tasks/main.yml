@@ -1,0 +1,22 @@
+---
+- name: Create the git directory.
+  file:
+    path: "{{ ansible_env.HOME }}/git"
+    state: directory
+
+- name: Clone the repository.
+  git:
+    dest: "{{ ansible_env.HOME }}/git/awx"
+    repo: https://github.com/ansible/awx.git
+    force: yes
+
+- name: Create the PostgreSQL data directory.
+  file:
+    path: /srv/awx-postgresql
+    state: directory
+
+- name: Set the PostgreSQL data directory.
+  lineinfile:
+    path: "{{ ansible_env.HOME }}/git/awx/installer/inventory"
+    regexp: '^postgres_data_dir='
+    line: 'postgres_data_dir=/srv/awx-postgresql'
