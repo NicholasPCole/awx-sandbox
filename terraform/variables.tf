@@ -17,7 +17,7 @@ variable "droplet_region" {
 variable "droplet_size" {
   type        = "string"
   description = "The size of Droplet to create."
-  default     = "s-2vcpu-4gb"
+  default     = "s-4vcpu-8gb"
 }
 
 variable "droplet_ssh_keys" {
